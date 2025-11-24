@@ -3,8 +3,8 @@ import html2canvas from 'html2canvas';
 import "./App.css"
 
 const initialImages = [
-  { id: 1, url: "/images/bunny.png", title: "One" },
-  { id: 2, url: "/images/wolf.png", title: "Two" },
+  { id: 1, url: "images/bunny.png", title: "One" },
+  { id: 2, url: "images/wolf.png", title: "Two" },
   { id: 3, url: "/images/sheep.png", title: "Three" },
   { id: 4, url: "/images/grass.png", title: "four" },
   { id: 5, url: "/images/carrot.png", title: "five" },
