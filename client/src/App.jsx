@@ -20,7 +20,7 @@ export default function GalleryFeedback() {
 
   // WebSocket setup
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:3001");
+    ws.current = new WebSocket("wss://show-dx8g.onrender.com");
 
     ws.current.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
