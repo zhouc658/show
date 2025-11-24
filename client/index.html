@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery + Chat</title>
+  <link rel="stylesheet" href="./src/App.css">
+  <style>
+    /* Simple chat styles */
+    #chat-container {
+      padding: 10px;
+      width: 250px;
+      height: 300px;
+      overflow-y: auto;
+      position: fixed;
+      right: 20px;
+      bottom: 130px;
+      background: #c6e6f9;
+      border-radius: 4%;
+    }
+  
+   
+  </style>
+</head>
+<body>
+  
+  <!-- React app mounts here -->
+  <div id="root"></div>
+
+  <!-- Chat box -->
+  <div id="chat-container">
+    <h3>Plan Together</h3>
+    <div id="messages"></div>
+    <input id="msgInput" placeholder="Type a message..." />
+    <button id="button">Send</button>
+  </div>
+
+  <!-- Chat JS -->
+  <script>
+    const socket = new WebSocket('ws://localhost:3001'); // change port if needed
+
+    const messagesDiv = document.getElementById('messages');
+    const input = document.getElementById('msgInput');
+    const button = document.getElementById('button');
+
+    socket.addEventListener('open', () => {
+      const elem = document.createElement('div');
+      elem.textContent = 'Connected to server';
+      elem.style.fontStyle = 'italic';
+      messagesDiv.appendChild(elem);
+    });
+
+    socket.addEventListener('message', (event) => {
+      const elem = document.createElement('div');
+      elem.textContent = event.data;
+      messagesDiv.appendChild(elem);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+
+    const sendMessage = () => {
+      if (input.value.trim() === '') return;
+      socket.send(input.value);
+      input.value = '';
+    }
+
+    button.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+
+  <!-- React app JS -->
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

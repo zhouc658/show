@@ -1,0 +1,167 @@
+@font-face{
+  font-family: 'heading';
+  src: url(./font/Pacifico.ttf);
+}
+
+@font-face{
+  font-family: 'p';
+  src: url(./font/Chewy.ttf);
+}
+
+body {
+  background: linear-gradient(to bottom, #95b9fb, #f5e7b2) ;  /* overflow: hidden; */
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+.container {
+  display: flex;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-row: repeat(15, 1fr);
+}
+h2{
+  text-align: center;
+  font-family: "heading";
+  font-size: 30px;
+  grid-column:5/15;
+  grid-row: 1;
+}
+h4{
+  text-align: center;
+  font-family: "p";
+  font-size: 20px;
+  grid-column:5/15;
+  grid-row: 2;
+}
+.sidebar {
+  width: 150px;
+  grid-column: 2/3;
+  grid-row: 6/13;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 images per row */
+  grid-template-rows: repeat(5, 1fr); /* 2 images per row */
+  gap: 28px; /* space between images */
+  align-items: center;
+}
+
+.gallery {
+  position: relative; /* so stage items position correctly */
+  width: 800px;
+  height: 600px;
+  padding: 16px;
+  background-image: url('./images/stage.png');
+  background-size: 100% 100%;
+  background-position: center;
+  overflow: hidden;
+
+  grid-column: 5/15;
+  grid-row: 3/12;
+}
+
+.upload-btn {
+  background-color: #ffecb7;
+  font-style: italic;
+  color: rgb(78, 107, 153);
+  border-radius: 8px;
+  padding: 5px 10px;  /* padding so that button edges aren't too tight and looks bigger */
+  cursor: pointer;   /* when the mouse is on the button, the mouse will turn into a hand press symbol */
+  font-size: 15px;
+  display: inline-block;   /* shows a small gap or  allows margin-bottom and width/height to work properly to show a gap between upload and input box*/
+  text-align: center;
+  grid-column: 2/5;
+  grid-row: 4/5;
+  margin-bottom: 5px;
+}
+.upload-btn:hover {
+  background-color: #fbefca;
+  transform: scale(1.05);   /* becomes bigger when hovered */
+}
+
+.upload-btn input {
+  display: none; /* hide the choose files word*/
+}
+
+.download-btn{
+  grid-column: 5/15;
+  grid-row: 12/13;
+  margin-bottom: 15px;
+}
+/* =========================================================
+   SIDEBAR IMAGES
+========================================================= */
+.sidebar img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: grab;
+  margin-bottom: 5px;
+  background-color: #ffecb7;
+  border-radius: 7%;
+}
+
+.sidebar .remove-btn {
+  position: absolute;
+  padding: 2px 6px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* =========================================================
+   GALLERY (STAGE) ITEMS
+========================================================= */
+.gallery-item {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: grab;
+}
+
+/* Remove button on stage style*/
+.gallery-item .remove-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  padding: 2px 6px;
+  color: rgb(192, 189, 189);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+
+#messages {
+  height: 180px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+#msgInput {
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+}
