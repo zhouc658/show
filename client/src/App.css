@@ -135,7 +135,8 @@ h4{
   top: -6px;
   right: -6px;
   padding: 2px 6px;
-  color: rgb(192, 189, 189);
+  color: rgb(155, 150, 150);
+  background-color: transparent;
   border: none;
   border-radius: 50%;
   cursor: pointer;

@@ -54,11 +54,11 @@
       const elem = document.createElement('div');
       elem.textContent = event.data;
       messagesDiv.appendChild(elem);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      // messagesDiv.scrollTop = messagesDiv.scrollHeight;
     });
 
     const sendMessage = () => {
-      if (input.value.trim() === '') return;
+      // if (input.value.trim() === '') return;
       socket.send(input.value);
       input.value = '';
     }

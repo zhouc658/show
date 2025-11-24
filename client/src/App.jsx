@@ -6,16 +6,15 @@ const initialImages = [
   { id: 1, url: "/images/bunny.png", title: "One" },
   { id: 2, url: "/images/wolf.png", title: "Two" },
   { id: 3, url: "/images/sheep.png", title: "Three" },
-  { id: 3, url: "/images/grass.png", title: "Three" },
-  { id: 3, url: "/images/carrot.png", title: "Three" },
-  { id: 3, url: "/images/catch.png", title: "Three" },
+  { id: 4, url: "/images/grass.png", title: "four" },
+  { id: 5, url: "/images/carrot.png", title: "five" },
+  { id: 6, url: "/images/catch.png", title: "six" },
 ];
 
 export default function GalleryFeedback() {
   const [images, setImages] = useState(initialImages); // props images
   const [stageImages, setStageImages] = useState([]); // images on the stage
   const [draggedId, setDraggedId] = useState(null);
-  const [hoveredId, setHoveredId] = useState(null);
   const galleryRef = useRef(null);
   const ws = useRef(null);
 
@@ -47,34 +46,20 @@ export default function GalleryFeedback() {
   const handleDrop = (e) => {
     e.preventDefault();
     if (!draggedId) return;
+    //Findind the x and y position after drop into the buttom container, then reset them to be center so minus 50 it not in corner
+    const newX = e.nativeEvent.offsetX - 50;
+    const newY = e.nativeEvent.offsetY - 50;
 
-    // Get container position
-    const rect = galleryRef.current.getBoundingClientRect();
-    const newX = e.clientX - rect.left - 50; // 50 is half image width
-    const newY = e.clientY - rect.top - 50;  // 50 is half image height
 
     let updatedStage = [...stageImages];
-    let updatedSidebar = [...images];
 
     const draggedOnStage = stageImages.find(i => i.id === draggedId.id);
-
-    if (hoveredId && hoveredId.id !== draggedId.id && draggedOnStage) {
-      // Swap positions on stage
-      const draggedImg = stageImages.find(img => img.id === draggedId.id);
-      const hoveredImg = stageImages.find(img => img.id === hoveredId.id);
-
-      updatedStage = stageImages.map(img => {
-        if (img.id === draggedId.id) return { ...img, x: hoveredImg.x, y: hoveredImg.y };
-        if (img.id === hoveredId.id) return { ...img, x: draggedImg.x, y: draggedImg.y };
-        return img;
-      });
-
-    } else if (!draggedOnStage) {
+    if (!draggedOnStage) {
       const newStageImage = {
         ...draggedId,
         id: Date.now(),
         x: newX,
-        y: newY
+        y: newY,
       };
 
       updatedStage = [...stageImages, newStageImage];
@@ -87,27 +72,23 @@ export default function GalleryFeedback() {
     }
 
     setStageImages(updatedStage);
-    setImages(updatedSidebar);
 
     broadcast("move", images, updatedStage);
 
     setDraggedId(null);
-    setHoveredId(null);
   };
 
   const handleUpload = (e) => {
     const files = Array.from(e.target.files);
-    const newImages = files.map((file, idx) => ({
-      id: Date.now() + idx,
-      url: URL.createObjectURL(file),
+    const newImages = files.map((file, id) => ({
+      id: Date.now() + id,
+      // url: URL.createObjectURL(file),
       title: file.name,
-      x: 0,
-      y: 0,
     }));
 
     const updatedSidebar = [...images, ...newImages];
     setImages(updatedSidebar);
-    broadcast("upload", updatedSidebar, stageImages);
+    broadcast("upload", updatedSidebar, stageImages);//take out stageImages
   };
 
   const handleDownloadGalleryImage = async () => {
@@ -184,11 +165,7 @@ export default function GalleryFeedback() {
             style={{ left: img.x, top: img.y }}
             draggable
             onDragStart={(e) => handleDragStart(e, img)}
-            onDragOver={(e) => {
-              e.preventDefault();
-              setHoveredId(img);
-            }}
-            onDragLeave={() => setHoveredId(null)}
+            
           >
             <img src={img.url} alt={img.title} />
             <button className="remove-btn" onClick={() => removeImage(img)}>x</button>
