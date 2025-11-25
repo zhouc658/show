@@ -33,20 +33,20 @@ h4{
   grid-column:5/15;
   grid-row: 2;
 }
-.sidebar {
+.prop {
   width: 150px;
   grid-column: 2/3;
   grid-row: 6/13;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 images per row */
+  grid-template-columns: repeat(2, 1fr); /* 2 images per column */
   grid-template-rows: repeat(5, 1fr); /* 2 images per row */
   gap: 28px; /* space between images */
   align-items: center;
 }
 
 
-/* SIDEBAR CSS */
-.sidebar img {
+/* PROP CSS */
+.prop img {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -56,7 +56,7 @@ h4{
   border-radius: 7%;
 }
 
-.sidebar .remove-btn {
+.prop .remove-btn {
   position: absolute;
   padding: 2px 6px;
   background-color: #ff6b6b;
@@ -116,10 +116,9 @@ h4{
   font-style: italic;
   color: rgb(78, 107, 153);
   border-radius: 8px;
-  padding: 5px 10px;  /* padding so that button edges aren't too tight and looks bigger */
+  padding: 5px 10px;  
   cursor: pointer;   /* when the mouse is on the button, the mouse will turn into a hand press symbol */
   font-size: 15px;
-  display: inline-block;   /* shows a small gap or  allows margin-bottom and width/height to work properly to show a gap between upload and input box*/
   text-align: center;
   grid-column: 2/5;
   grid-row: 4/5;
@@ -138,7 +137,19 @@ h4{
   margin-bottom: 15px;
 }
 
-/* CHATBOX CSS */
+/* PLAN BOX CSS for index.html*/
+#plan-container {
+  padding: 10px;
+  width: 250px;
+  height: 300px;
+  overflow-y: auto;
+  position: fixed;
+  right: 20px;
+  bottom: 130px;
+  background: #c6e6f9;
+  border-radius: 4%;
+}
+
 #messages {
   height: 180px;
   overflow-y: auto;

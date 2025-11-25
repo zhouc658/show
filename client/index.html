@@ -1,73 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery + Chat</title>
+  <title>Gallery</title>
   <link rel="stylesheet" href="./src/App.css">
-  <style>
-    /* Simple chat styles */
-    #chat-container {
-      padding: 10px;
-      width: 250px;
-      height: 300px;
-      overflow-y: auto;
-      position: fixed;
-      right: 20px;
-      bottom: 130px;
-      background: #c6e6f9;
-      border-radius: 4%;
-    }
-  
-   
-  </style>
+
 </head>
+
 <body>
-  
-  <!-- React app mounts here -->
+
   <div id="root"></div>
 
-  <!-- Chat box -->
-  <div id="chat-container">
+  <!-- plan box -->
+  <div id="plan-container">
     <h3>Plan Together</h3>
     <div id="messages"></div>
     <input id="msgInput" placeholder="Type a message..." />
     <button id="button">Send</button>
   </div>
 
-  <!-- Chat JS -->
+  <!-- plan JS -->
   <script>
-    const ws = new WebSocket('ws://localhost:3001'); // change port if needed
+    const ws = new WebSocket('ws://localhost:3001');  //creates a new ws connection
 
-    const messagesDiv = document.getElementById('messages');
+    //where messages will be displayed
+    const messagesDiv = document.getElementById('messages'); 
+    // input element where the user types their message
     const input = document.getElementById('msgInput');
+    // a button element for user to click send
     const button = document.getElementById('button');
 
+    //checking if it is connected, runs when connection is open and tell the user that u are connected 
     ws.addEventListener('open', () => {
       const elem = document.createElement('div');
-      elem.textContent = 'Connected to server';
+      // elem.textContent = 'Connected to server';
       messagesDiv.appendChild(elem);
     });
 
+      //runs when a mesg is sent everytime to client
     ws.addEventListener('message', (event) => {
-      const elem = document.createElement('div');
+      const elem = document.createElement('div'); //create div to hold the msg
       elem.textContent = event.data;
-      messagesDiv.appendChild(elem);
-      // messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      messagesDiv.appendChild(elem);//show on the screen
     });
 
-    const sendMessage = () => {
-      ws.send(input.value);
+    button.addEventListener('click', () => {
+      ws.send(input.value); //send message to the server and does all of the code part in js(ws.on('message',(data)=>{)) and then the socket.addEventListener is like we got a message
       input.value = '';
-    }
-
-    button.addEventListener('click', ()=>{
-        ws.send(input.value); //send message to the server and does all of the code part in js(ws.on('message',(data)=>{)) and then the socket.addEventListener is like we got a message
-        input.value='';
-      })    
+    })    
   </script>
 
   <!-- React app JS -->
   <script type="module" src="/src/main.jsx"></script>
 </body>
+
 </html>
