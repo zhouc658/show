@@ -44,7 +44,7 @@ export default function GalleryFeedback() {
     };
 
     return () => ws.current.close(); //close ws when it is done
-  }, []); //The [] makes the effect run only once
+  }, []); //The [] makes the effect run only once just for setup
 
   //telling server that something changed on the client side so that the server can update all the clients, so the type are the changes like move from before
   const broadcast = (type, propImages, stageImages) => {
@@ -65,7 +65,7 @@ export default function GalleryFeedback() {
     // if nothing is being dragged, do nothing
     if (!draggedId) return;
 
-    //Findind the x and y position after drop into the stage container, then reset them to be center so minus 50 it not in corner, referenced Xiao's code
+    //Findind the x and y position after drop into the stage/gallery container, then reset them to be center so minus 50 it not in corner, referenced Xiao's code
     const newX = e.nativeEvent.offsetX - 50;
     const newY = e.nativeEvent.offsetY - 50;
 
@@ -182,7 +182,6 @@ export default function GalleryFeedback() {
             <img
               src={img.url}
               alt={img.title}
-
             />
             <button //button to remove the img
               className="remove-btn"

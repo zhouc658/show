@@ -2,7 +2,7 @@
 const http = require('http');
 const { WebSocketServer } = require('ws');
 
-// Create a basic HTTP server (so WebSocket can upgrade properly)
+// Create a basic HTTP server 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   //prints console current status

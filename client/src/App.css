@@ -12,7 +12,6 @@ body {
   background: linear-gradient(to bottom, #95b9fb, #f5e7b2) ;  /* overflow: hidden; */
 }
 
-
 .container {
   display: flex;
   display: grid;
@@ -50,7 +49,7 @@ h4{
   width: 100px;
   height: 100px;
   object-fit: cover;
-  cursor: grab;
+  cursor: grab; /* when the mouse is on the button, the mouse will turn into a small hand that looks like actual grabbing*/
   margin-bottom: 5px;
   background-color: #ffecb7;
   border-radius: 7%;
