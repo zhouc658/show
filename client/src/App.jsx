@@ -4,8 +4,9 @@ import "./App.css"
 
 const BASE_URL = import.meta.env.BASE_URL; 
 
+//define my images array in their initial order
 const initialImages = [
-  { id: 1, url: `${BASE_URL}images/bunny.png`, title: "One" },
+  { id: 1, url: `${base}images/bunny.png`, title: "One" },
   { id: 2, url: "images/wolf.png", title: "Two" },
   { id: 3, url: "/images/sheep.png", title: "Three" },
   { id: 4, url: "/images/grass.png", title: "four" },

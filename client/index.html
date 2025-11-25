@@ -37,20 +37,19 @@
 
   <!-- Chat JS -->
   <script>
-    const socket = new WebSocket('ws://localhost:3001'); // change port if needed
+    const ws = new WebSocket('ws://localhost:3001'); // change port if needed
 
     const messagesDiv = document.getElementById('messages');
     const input = document.getElementById('msgInput');
     const button = document.getElementById('button');
 
-    socket.addEventListener('open', () => {
+    ws.addEventListener('open', () => {
       const elem = document.createElement('div');
       elem.textContent = 'Connected to server';
-      elem.style.fontStyle = 'italic';
       messagesDiv.appendChild(elem);
     });
 
-    socket.addEventListener('message', (event) => {
+    ws.addEventListener('message', (event) => {
       const elem = document.createElement('div');
       elem.textContent = event.data;
       messagesDiv.appendChild(elem);
@@ -58,15 +57,14 @@
     });
 
     const sendMessage = () => {
-      // if (input.value.trim() === '') return;
-      socket.send(input.value);
+      ws.send(input.value);
       input.value = '';
     }
 
-    button.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') sendMessage();
-    });
+    button.addEventListener('click', ()=>{
+        ws.send(input.value); //send message to the server and does all of the code part in js(ws.on('message',(data)=>{)) and then the socket.addEventListener is like we got a message
+        input.value='';
+      })    
   </script>
 
   <!-- React app JS -->
